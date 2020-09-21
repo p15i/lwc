@@ -279,8 +279,11 @@ function transform(root: IRNode, codeGen: CodeGen): t.Expression {
         const argNames: { [key: string]: t.Identifier } = {
             value: t.identifier(`${iteratorName}Value`),
             index: t.identifier(`${iteratorName}Index`),
+            counter: t.identifier(`${iteratorName}Counter`),
             first: t.identifier(`${iteratorName}First`),
             last: t.identifier(`${iteratorName}Last`),
+            odd: t.identifier(`${iteratorName}Odd`),
+            even: t.identifier(`${iteratorName}Even`),
         };
 
         const functionParams = Object.keys(argNames).map((key) => argNames[key]);

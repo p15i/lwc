@@ -430,7 +430,15 @@ export function c(
 // [i]terable node
 export function i(
     iterable: Iterable<any>,
-    factory: (value: any, index: number, first: boolean, last: boolean) => VNodes | VNode
+    factory: (
+        value: any,
+        index: number,
+        counter: number,
+        first: boolean,
+        last: boolean,
+        odd: boolean,
+        even: boolean
+    ) => VNodes | VNode
 ): VNodes {
     const list: VNodes = [];
     // TODO [#1276]: compiler should give us some sort of indicator when a vnodes collection is dynamic
@@ -480,7 +488,7 @@ export function i(
         last = next.done;
 
         // template factory logic based on the previous collected value
-        const vnode = factory(value, j, j === 0, last);
+        const vnode = factory(value, j, j + 1, j === 0, last, (j & 1) === 0, (j & 1) !== 0);
         if (isArray(vnode)) {
             ArrayPush.apply(list, vnode);
         } else {

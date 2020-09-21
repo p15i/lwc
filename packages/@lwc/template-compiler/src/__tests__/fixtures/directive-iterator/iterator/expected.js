@@ -12,17 +12,19 @@ function tmpl($api, $cmp, $slotset, $ctx) {
     api_element(
       "section",
       {
-        key: 2
+        key: 3
       },
-      api_iterator($cmp.items, function(xValue, xIndex, xFirst, xLast) {
+      api_iterator($cmp.items, function(xValue, xIndex, xCounter, xFirst, xLast, xOdd, xEven) {
         return api_element(
           "div",
           {
             attrs: {
               "data-islast": xLast,
-              "data-isfirst": xFirst
+              "data-isfirst": xFirst,
+              "data-isodd": xOdd,
+              "data-iseven": xEven
             },
-            key: api_key(1, xValue.id)
+            key: api_key(2, xValue.id)
           },
           [
             api_element(
@@ -31,6 +33,14 @@ function tmpl($api, $cmp, $slotset, $ctx) {
                 key: 0
               },
               [api_text("Row: "), api_dynamic(xIndex)]
+            ),
+            api_text(". "),
+            api_element(
+              "span",
+              {
+                key: 1
+              },
+              [api_text("Number: "), api_dynamic(xCounter)]
             ),
             api_text(". Value: "),
             api_dynamic(xValue)
